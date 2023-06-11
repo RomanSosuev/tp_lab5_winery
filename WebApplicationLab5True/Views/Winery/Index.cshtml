@@ -1,0 +1,49 @@
+﻿@using WebApplicationLab5True.Models
+
+@model List<WineryModel>
+
+@helper WinesTable(List<WineryModel> Wines)
+
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Название вина </th>
+                <th>Виноград </th>
+                <th>Дата сбора урожая </th>
+                <th>Алькоголь </th>
+                <th>Цена </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @while (Wines.Any())
+            {
+                var Wine = Wines.First();
+                Wines.Remove(Wine);
+
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => Wine.WineName)</td>
+                    <td>@Html.DisplayFor(modelItem => Wine.Grape)</td>
+                    <td>@Html.DisplayFor(modelItem => Wine.HarvestDate)</td>
+                    <td>@Html.DisplayFor(modelItem => Wine.Acl)</td>
+                    <td>@Html.DisplayFor(modelItem => Wine.Price)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+
+@if (Model.Any())
+{
+    @WinesTable(Model)
+}
+else
+{
+    <p>Нет данных.</p>
+}
+
+<div>
+    @Html.ActionLink("Добавить вино", "CreateWine")
+</div>
